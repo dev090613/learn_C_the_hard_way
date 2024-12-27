@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_DATA 512
 // define Person structure
 struct Person {
 	char *name;
@@ -30,7 +31,7 @@ void Person_destroy(struct Person *who)
 {
 	assert(who != NULL);
 
-	free(who->name);
+	// free(who->name);
 	free(who);
 }
 
@@ -38,7 +39,7 @@ void Person_print(struct Person *who)
 {
 	printf("\nName: %s\n", who->name);
 	printf("\tAge: %d\n", who->age);
-	printf("\tHeight: %d\n", who->height);
+    printf("\tHeight: %d\n", who->height);
 	printf("\tWeight: %d\n", who->weight);
 }
 
@@ -48,7 +49,8 @@ int main(int argc, char *argv[])
 	struct Person *frank = Person_create("Frank Blank", 20, 72, 180);
 
 	// Person_destroy(NULL);
-
+    Person_print(NULL);
+    
 	printf("\nJoe is at memory location %p: \n", joe);
 	Person_print(joe);
 
@@ -64,8 +66,8 @@ int main(int argc, char *argv[])
 	frank->weight += 20;
 	Person_print(frank);
 
-	// Person_destroy(joe);
-	// Person_destroy(frank);
+	Person_destroy(joe);
+	Person_destroy(frank);
 
 	return 0;
 
