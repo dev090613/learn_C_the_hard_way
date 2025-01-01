@@ -123,7 +123,7 @@ void Database_set(struct Connection *conn, int id, const char *name,
 		die("Name copy failed.");
 
 	res = strncpy(addr->email, email, MAX_DATA);
-	if (!res)
+	if (!res) // strncpy aloways return ptr to dest. so, meaningless check
 		die("Email copy failed.");
 }
 
@@ -152,9 +152,8 @@ void Database_list(struct Connection *conn)
 	for (i = 0; i < MAX_ROWS; i++) {
 		struct Address *cur = &db->rows[i];
 
-		if (cur->set) {
+		if (cur->set)
 			Address_print(cur);
-		}
 	}
 }
 
@@ -186,7 +185,7 @@ int main(int argc, char *argv[])
 
 		case 's':
 			if (argc != 6)
-				die("Need id, anme email to set.");
+				die("Need id, name, email to set.");
 
 			Database_set(conn, id, argv[4], argv[5]);
 			Database_write(conn);
